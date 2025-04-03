@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
-
 
 public class GameManager : MonoBehaviour
 {
@@ -11,49 +8,43 @@ public class GameManager : MonoBehaviour
     public bool isFirst;
     private Camera _cam;
     public static GameManager Instance;
-    public Transform bg=null;
 
-    private void Awake()=>Instance = this;
+    private void Awake() => Instance = this;
 
-    void Start()
-    {
-        _cam = Camera.main;
-    }
-
-    private void Update()
-    {
-     bg.position=_cam.transform.position;   
-    }
+    private void Start() => _cam = Camera.main;
 
     public void RandomPos()
     {
-
-        float randomX = Random.Range(2f, 3f);
         int currentIndex = isFirst ? 1 : 0;
-        int nextIndex = isFirst ? 0 : 1;
+        int nextIndex = 1 - currentIndex;
 
-        platforms[currentIndex].position = new(platforms[nextIndex].position.x + randomX, platforms[nextIndex].position.y);
+        platforms[currentIndex].position = new Vector2(
+            platforms[nextIndex].position.x + 2.5f,
+            platforms[nextIndex].position.y + Random.Range(0f, 1f)
+        );
         isFirst = !isFirst;
-       
-
-
     }
 
     public void CameraPos()
     {
-        float camX = (platforms[0].position.x + platforms[1].position.x) / 2;
-        Vector3 newPos = new(camX, -2,-1);
-        _cam.transform.position = Vector3.MoveTowards(_cam.transform.position, newPos, 10f * Time.deltaTime);
-        
+        Vector3 newPos = new Vector3(
+            (platforms[0].position.x + platforms[1].position.x) * 0.5f,
+            (platforms[0].position.y + platforms[1].position.y) * 0.5f + 5f,
+            -1f
+        );
+        _cam.transform.position = Vector3.Lerp(_cam.transform.position, newPos, Time.deltaTime * 10f);
     }
 
+    public void RestartGame() => LoadScene(SceneManager.GetActiveScene().name);
 
-    public void StartGame()
+    public void ReturnMenu() => LoadScene("MainMenu");
+
+    private void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(1);
+        Time.timeScale = 1f;
+        AudioManager.instance.PlayMusic("MainTheme");
+        SceneManager.LoadScene(sceneName);
     }
-    
-    
 
-
+    public void QuitGame() => Application.Quit();
 }

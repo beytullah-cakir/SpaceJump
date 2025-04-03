@@ -1,0 +1,5 @@
+C:/SpaceJump/.utmp/RelWithDebInfo/413a456k/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/SpaceJump/.utmp/RelWithDebInfo/413a456k/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/SpaceJump/.utmp/RelWithDebInfo/413a456k/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/SpaceJump/.utmp/RelWithDebInfo/413a456k/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+C:/SpaceJump/.utmp/RelWithDebInfo/413a456k/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir
